@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStuctures
+namespace DataStructures
 {
     public class AdjacencyList<TKey, TValue> : Dictionary<TKey, List<TValue>>
     {
