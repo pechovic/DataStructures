@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class Node<T> where T : IComparable<T>
+    public class Node<T>
+        where T : IComparable<T>
     {
         private readonly T _value;
-        public T Value
+        public virtual T Value
         {
             get
             {
@@ -17,13 +18,20 @@ namespace DataStructures
             }
         }
 
-        public Node<T> LeftNode { get; set; }
-        public Node<T> RightNode { get; set; }
+        /// <summary>
+        /// Not a property because it is passed as ref many times.
+        /// </summary>
+        public Node<T> LeftNode;
+
+        /// <summary>
+        /// Not a property because it is passed as ref many times.
+        /// </summary>
+        public Node<T> RightNode;
 
         /// <summary>
         /// Classic hight of the node.
         /// </summary>
-        public int Height
+        public virtual int Height
         {
             get
             {
@@ -34,7 +42,7 @@ namespace DataStructures
             }
         }
 
-        public int Balance
+        public virtual int Balance
         {
             get
             {
@@ -50,7 +58,7 @@ namespace DataStructures
         {
             _value = value;
         }
-
+        
         public static bool operator <(Node<T> a, Node<T> b)
         {
             return a.Value.CompareTo(b.Value) < 0;

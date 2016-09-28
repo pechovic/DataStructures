@@ -51,12 +51,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AdjacencyListTest.cs" />
+    <Compile Include="AvlBstTest.cs" />
     <Compile Include="HeapTest.cs" />
     <Compile Include="NodeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataStuctures\DataStructures.csproj">
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
       <Project>{4040af44-b21a-4a67-a7a2-24aafbe6d633}</Project>
       <Name>DataStructures</Name>
     </ProjectReference>
