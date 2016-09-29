@@ -6,27 +6,16 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class Node<T>
+    public abstract class Node<T>
         where T : IComparable<T>
     {
-        private readonly T _value;
-        public virtual T Value
-        {
-            get
-            {
-                return _value;
-            }
-        }
+        public abstract T Value { get; protected set; }
 
-        /// <summary>
-        /// Not a property because it is passed as ref many times.
-        /// </summary>
-        public Node<T> LeftNode;
+        public abstract Node<T> LeftNode { get; internal set; }
 
-        /// <summary>
-        /// Not a property because it is passed as ref many times.
-        /// </summary>
-        public Node<T> RightNode;
+        public abstract Node<T> RightNode { get; internal set; }
+
+        public abstract Node<T> Parent { get; internal set; }
 
         /// <summary>
         /// Classic hight of the node.
@@ -42,13 +31,7 @@ namespace DataStructures
             }
         }
 
-        public virtual int Balance
-        {
-            get
-            {
-                return LeftNode.Height - RightNode.Height;
-            }
-        }
+        public abstract int BalanceFactor { get; }
 
         public Node()
         {
@@ -56,9 +39,54 @@ namespace DataStructures
 
         public Node(T value)
         {
-            _value = value;
+            Value = value;
         }
+
+        public Node<T> GetRoot()
+        {
+            if (Parent == null)
+            {
+                return this;
+            }
+
+            return Parent.GetRoot();
+        }
+
+        #region Traversal
         
+        public virtual void InOrderTraversal(Action<Node<T>> actionOnNode)
+        {
+            LeftNode.InOrderTraversal(actionOnNode);
+            actionOnNode(this);
+            RightNode.InOrderTraversal(actionOnNode);
+        }
+
+        public virtual void PreOrderTraversal(Action<Node<T>> actionOnNode)
+        {
+            actionOnNode(this);
+            LeftNode.InOrderTraversal(actionOnNode);
+            RightNode.InOrderTraversal(actionOnNode);
+        }
+
+        public virtual void PostOrderTraversal(Action<Node<T>> actionOnNode)
+        {
+            LeftNode.InOrderTraversal(actionOnNode);
+            RightNode.InOrderTraversal(actionOnNode);
+            actionOnNode(this);
+        }
+
+        #endregion
+
+        #region Add/Delete
+
+        public abstract Node<T> Add(Node<T> node);
+
+        public abstract void Remove();
+
+        #endregion
+
+        #region Equality
+
         public static bool operator <(Node<T> a, Node<T> b)
         {
             return a.Value.CompareTo(b.Value) < 0;
@@ -134,5 +162,7 @@ namespace DataStructures
         {
             return Value.GetHashCode();
         }
+
+        #endregion
     }
 }

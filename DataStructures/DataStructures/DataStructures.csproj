@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdjacencyList.cs" />
-    <Compile Include="AvlBst.cs" />
+    <Compile Include="AvlTreeNode.cs" />
     <Compile Include="EmptyNode.cs" />
     <Compile Include="Heap.cs" />
     <Compile Include="Node.cs" />

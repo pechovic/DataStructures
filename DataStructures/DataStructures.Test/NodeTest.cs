@@ -13,9 +13,9 @@ namespace DataStructures.Test
         [TestMethod]
         public void Node_Less_Then_Test()
         {
-            Node<int> node1 = new Node<int>(7);
-            Node<int> node2 = new Node<int>(8);
-            Node<int> node3 = new Node<int>(8);
+            Node<int> node1 = new AvlTreeNode<int>(7);
+            Node<int> node2 = new AvlTreeNode<int>(8);
+            Node<int> node3 = new AvlTreeNode<int>(8);
 
             Assert.IsTrue(node1 < node2);
             Assert.IsFalse(node2 < node1);
@@ -26,9 +26,9 @@ namespace DataStructures.Test
         [TestMethod]
         public void Node_Greater_Then_Test()
         {
-            Node<int> node1 = new Node<int>(7);
-            Node<int> node2 = new Node<int>(8);
-            Node<int> node3 = new Node<int>(8);
+            Node<int> node1 = new AvlTreeNode<int>(7);
+            Node<int> node2 = new AvlTreeNode<int>(8);
+            Node<int> node3 = new AvlTreeNode<int>(8);
 
             Assert.IsFalse(node1 > node2);
             Assert.IsTrue(node2 > node1);
@@ -39,9 +39,9 @@ namespace DataStructures.Test
         [TestMethod]
         public void Node_Equal_Test()
         {
-            Node<int> node1 = new Node<int>(7);
-            Node<int> node2 = new Node<int>(8);
-            Node<int> node3 = new Node<int>(8);
+            Node<int> node1 = new AvlTreeNode<int>(7);
+            Node<int> node2 = new AvlTreeNode<int>(8);
+            Node<int> node3 = new AvlTreeNode<int>(8);
 
             Assert.IsFalse(node1 == node2);
             Assert.IsFalse(node2 == node1);
@@ -52,9 +52,9 @@ namespace DataStructures.Test
         [TestMethod]
         public void Node_NotEqual_Test()
         {
-            Node<int> node1 = new Node<int>(7);
-            Node<int> node2 = new Node<int>(8);
-            Node<int> node3 = new Node<int>(8);
+            Node<int> node1 = new AvlTreeNode<int>(7);
+            Node<int> node2 = new AvlTreeNode<int>(8);
+            Node<int> node3 = new AvlTreeNode<int>(8);
 
             Assert.IsTrue(node1 != node2);
             Assert.IsTrue(node2 != node1);
