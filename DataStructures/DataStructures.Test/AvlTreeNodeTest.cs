@@ -119,11 +119,11 @@ namespace DataStructures.Test
         {
             var rootNode = GetBigTree();
             
-            Assert.AreEqual(13, rootNode.Height);
+            Assert.AreEqual(9, rootNode.Height);
             Assert.IsNotNull(rootNode.Find(9));
             Assert.IsNotNull(rootNode.Find(998));
             Assert.IsNotNull(rootNode.Find(345));
-            Assert.IsNotNull(rootNode.Find(6789));
+            Assert.IsNotNull(rootNode.Find(789));
         }
 
         [TestMethod]
@@ -153,7 +153,7 @@ namespace DataStructures.Test
         private AvlTreeNode<int> GetBigTree()
         {
             var tree = new AvlTreeNode<int>(1);
-            for (int i = 2; i < 10000; i++)
+            for (int i = 2; i < 1000; i++)
             {
                 tree.GetRoot().Add(new AvlTreeNode<int>(i));
             }

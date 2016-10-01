@@ -12,10 +12,18 @@ namespace DataStructures
         private readonly T[] _heap;
         private int _count;
 
-        public Heap(HeapType heapType, HeapSize heapSize)
+        public int Count
+        {
+            get
+            {
+                return _count;
+            }
+        }
+
+        public Heap(HeapType heapType, ulong heapSize)
         {
             _heapType = heapType;
-            _heap = new T[(ulong)heapSize];
+            _heap = new T[heapSize];
             _count = 0;
         }
 
@@ -66,6 +74,7 @@ namespace DataStructures
                 wrong = swapIndex;
             }
 
+            _count--;
             return removed;
         }
 
@@ -103,15 +112,5 @@ namespace DataStructures
     {
         Max,
         Min
-    }
-
-    public enum HeapSize : ulong
-    {
-        VerySmall =     2^10,
-        Small =         2^16,
-        Medium =        2^20,
-        Big =           2^32,
-        VeryBig =       2^64,
-        Max =           (2^62)*2
     }
 }
