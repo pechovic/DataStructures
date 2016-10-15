@@ -57,7 +57,7 @@ namespace DataStructures
             {
                 if (_leftNode == null)
                 {
-                    return new EmptyLeaf();
+                    return EmptyLeaf.Instance;
                 }
 
                 return _leftNode;
@@ -76,7 +76,7 @@ namespace DataStructures
             {
                 if (_rightNode == null)
                 {
-                    return new EmptyLeaf();
+                    return EmptyLeaf.Instance;
                 }
 
                 return _rightNode;
@@ -125,6 +125,12 @@ namespace DataStructures
 
         public void Add(AvlTreeNode<T> node)
         {
+            // add only on root node
+            GetRoot().AddInternal(node);
+        }
+
+        private void AddInternal(AvlTreeNode<T> node)
+        {
             if (this > node)
             {
                 if (LeftNode is EmptyLeaf)
@@ -134,7 +140,7 @@ namespace DataStructures
                     return;
                 }
 
-                LeftNode.Add(node);
+                LeftNode.AddInternal(node);
             }
             else
             {
@@ -145,20 +151,30 @@ namespace DataStructures
                     return;
                 }
 
-                RightNode.Add(node);
+                RightNode.AddInternal(node);
             }
         }
 
-        public void Remove()
+        public void Remove(AvlTreeNode<T> node)
         {
-            throw new NotImplementedException();
+            GetRoot().RemoveInternal(node);
         }
 
+        private void RemoveInternal(AvlTreeNode<T> node)
+        {
+
+        }
+
+        /// <summary>
+        /// Returns EmptyLeaf if the item was not found.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public AvlTreeNode<T> Find(T value)
         {
             if (this is EmptyLeaf)
             {
-                return null;
+                return EmptyLeaf.Instance;
             }
 
             if (Value.CompareTo(value) == 0)
@@ -391,7 +407,7 @@ namespace DataStructures
         /// <summary>
         /// Null object pattern for simple writing.
         /// </summary>
-        private class EmptyLeaf : AvlTreeNode<T>
+        public class EmptyLeaf : AvlTreeNode<T>
         {
             public override int BalanceFactor
             {
@@ -409,6 +425,19 @@ namespace DataStructures
                 }
             }
 
+            private static EmptyLeaf _instance = new EmptyLeaf();
+            public static EmptyLeaf Instance
+            {
+                get
+                {
+                    return _instance;
+                }
+            }
+
+            private EmptyLeaf()
+            {
+            }
+            
             public override void InOrderTraversal(Action<AvlTreeNode<T>> actionOnNode)
             {
             }

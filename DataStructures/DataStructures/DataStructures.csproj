@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdjacencyList.cs" />
     <Compile Include="AvlTreeNode.cs" />
     <Compile Include="Heap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

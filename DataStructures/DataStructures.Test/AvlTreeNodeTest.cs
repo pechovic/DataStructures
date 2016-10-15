@@ -120,18 +120,22 @@ namespace DataStructures.Test
             var rootNode = GetBigTree();
             
             Assert.AreEqual(9, rootNode.Height);
-            Assert.IsNotNull(rootNode.Find(9));
-            Assert.IsNotNull(rootNode.Find(998));
-            Assert.IsNotNull(rootNode.Find(345));
-            Assert.IsNotNull(rootNode.Find(789));
+
+            Type empty = typeof(AvlTreeNode<int>.EmptyLeaf);
+            Assert.IsNotInstanceOfType(rootNode.Find(9), empty);
+            Assert.IsNotInstanceOfType(rootNode.Find(998), empty);
+            Assert.IsNotInstanceOfType(rootNode.Find(345), empty);
+            Assert.IsNotInstanceOfType(rootNode.Find(789), empty);
+
+            Assert.IsInstanceOfType(rootNode.Find(10900998), empty);
         }
 
         [TestMethod]
         public void RightLeftRotation_Ok()
         {
             var node = new AvlTreeNode<int>(3);
-            node.GetRoot().Add(new AvlTreeNode<int>(1));
-            node.GetRoot().Add(new AvlTreeNode<int>(2));
+            node.Add(new AvlTreeNode<int>(1));
+            node.Add(new AvlTreeNode<int>(2));
 
             Assert.AreEqual(new AvlTreeNode<int>(2), node.GetRoot());
             Assert.AreEqual(new AvlTreeNode<int>(1), node.GetRoot().LeftNode);
@@ -139,13 +143,32 @@ namespace DataStructures.Test
             Assert.AreEqual(1, node.GetRoot().Height);
         }
 
+        [TestMethod]
+        public void Remove_Ok()
+        {
+            var rootNode = GetBigTree();
+
+            Assert.AreEqual(9, rootNode.Height);
+
+            rootNode.Remove(new AvlTreeNode<int>(9));
+            rootNode.Remove(new AvlTreeNode<int>(345));
+
+            Type empty = typeof(AvlTreeNode<int>.EmptyLeaf);
+            Assert.IsInstanceOfType(rootNode.Find(9), empty);
+            Assert.IsNotInstanceOfType(rootNode.Find(998), empty);
+            Assert.IsInstanceOfType(rootNode.Find(345), empty);
+            Assert.IsNotInstanceOfType(rootNode.Find(789), empty);
+
+            Assert.IsInstanceOfType(rootNode.Find(10900998), empty);
+        }
+
         private AvlTreeNode<int> Get12345Tree()
         {
             var tree = new AvlTreeNode<int>(1);
-            tree.GetRoot().Add(new AvlTreeNode<int>(2));
-            tree.GetRoot().Add(new AvlTreeNode<int>(3));
-            tree.GetRoot().Add(new AvlTreeNode<int>(4));
-            tree.GetRoot().Add(new AvlTreeNode<int>(5));
+            tree.Add(new AvlTreeNode<int>(2));
+            tree.Add(new AvlTreeNode<int>(3));
+            tree.Add(new AvlTreeNode<int>(4));
+            tree.Add(new AvlTreeNode<int>(5));
 
             return tree.GetRoot();
         }
@@ -155,7 +178,7 @@ namespace DataStructures.Test
             var tree = new AvlTreeNode<int>(1);
             for (int i = 2; i < 1000; i++)
             {
-                tree.GetRoot().Add(new AvlTreeNode<int>(i));
+                tree.Add(new AvlTreeNode<int>(i));
             }
 
             return tree.GetRoot();
