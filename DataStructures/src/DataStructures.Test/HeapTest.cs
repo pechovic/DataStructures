@@ -1,14 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataStructures;
+﻿using Xunit;
 using System.Collections.Generic;
 
 namespace DataStructures.Test
 {
-    [TestClass]
     public class HeapTest
     {
-        [TestMethod]
+        [Fact]
         public void Inset_Integers_Ok()
         {
             Heap<int> heap = new Heap<int>(HeapType.Max, 10);
@@ -18,10 +15,10 @@ namespace DataStructures.Test
             heap.Insert(96);
             heap.Insert(11);
             
-            Assert.AreEqual("96,11,40,3", string.Join(",", heap.ToArray()));
+            Assert.Equal("96,11,40,3", string.Join(",", heap.ToArray()));
         }
 
-        [TestMethod]
+        [Fact]
         public void Insert_MinOrder_Ok()
         {
             Heap<int> heap = new Heap<int>(HeapType.Min, 10);
@@ -35,10 +32,10 @@ namespace DataStructures.Test
             heap.Insert(2);
             heap.Insert(1);
 
-            Assert.AreEqual("1,1,2,4,6,8,45,89", string.Join(",", EnumerateHeap(heap)));
+            Assert.Equal("1,1,2,4,6,8,45,89", string.Join(",", EnumerateHeap(heap)));
         }
 
-        [TestMethod]
+        [Fact]
         public void Insert_MaxOrder_Ok()
         {
             Heap<int> heap = new Heap<int>(HeapType.Max, 20);
@@ -52,7 +49,7 @@ namespace DataStructures.Test
             heap.Insert(2);
             heap.Insert(1);
 
-            Assert.AreEqual("89,45,8,6,4,2,1,1", string.Join(",", EnumerateHeap(heap)));
+            Assert.Equal("89,45,8,6,4,2,1,1", string.Join(",", EnumerateHeap(heap)));
         }
 
         private IEnumerable<int> EnumerateHeap(Heap<int> heap)
