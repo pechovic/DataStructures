@@ -5,65 +5,14 @@ namespace DataStructures.Test
 {
     public class AvlTreeNodeTest
     {
-        [Fact]
-        public void Node_Less_Then_Test()
-        {
-            var node1 = new AvlTreeNode<int>(7);
-            var node2 = new AvlTreeNode<int>(8);
-            var node3 = new AvlTreeNode<int>(8);
-
-            Assert.True(node1 < node2);
-            Assert.False(node2 < node1);
-            Assert.False(node2 < node3);
-            Assert.False(node3 < node2);
-        }
-
-        [Fact]
-        public void Node_Greater_Then_Test()
-        {
-            var node1 = new AvlTreeNode<int>(7);
-            var node2 = new AvlTreeNode<int>(8);
-            var node3 = new AvlTreeNode<int>(8);
-
-            Assert.False(node1 > node2);
-            Assert.True(node2 > node1);
-            Assert.False(node2 > node3);
-            Assert.False(node3 > node2);
-        }
-
-        [Fact]
-        public void Node_Equal_Test()
-        {
-            var node1 = new AvlTreeNode<int>(7);
-            var node2 = new AvlTreeNode<int>(8);
-            var node3 = new AvlTreeNode<int>(8);
-
-            Assert.False(node1 == node2);
-            Assert.False(node2 == node1);
-            Assert.True(node2 == node3);
-            Assert.True(node3 == node2);
-        }
-
-        [Fact]
-        public void Node_NotEqual_Test()
-        {
-            var node1 = new AvlTreeNode<int>(7);
-            var node2 = new AvlTreeNode<int>(8);
-            var node3 = new AvlTreeNode<int>(8);
-
-            Assert.True(node1 != node2);
-            Assert.True(node2 != node1);
-            Assert.False(node2 != node3);
-            Assert.False(node3 != node2);
-        }
-
+        
         [Fact]
         public void Add_RootNode_Ok()
         {
             var node = new AvlTreeNode<int>(1);
             node.Add(new AvlTreeNode<int>(2));
 
-            Assert.Equal(new AvlTreeNode<int>(1), node.GetRoot());
+            Assert.Equal(node, node.GetRoot());
             Assert.Equal(1, node.GetRoot().Height);
         }
 
@@ -89,9 +38,9 @@ namespace DataStructures.Test
             node.Add(new AvlTreeNode<int>(4));
             node.Add(new AvlTreeNode<int>(3));
             
-            Assert.Equal(new AvlTreeNode<int>(4), node.GetRoot());
-            Assert.Equal(new AvlTreeNode<int>(3), node.GetRoot().LeftNode);
-            Assert.Equal(new AvlTreeNode<int>(5), node.GetRoot().RightNode);
+            Assert.Equal(4, node.GetRoot().Value);
+            Assert.Equal(3, node.GetRoot().LeftNode.Value);
+            Assert.Equal(5, node.GetRoot().RightNode.Value);
             Assert.Equal(1, node.GetRoot().Height);
         }
 
@@ -103,9 +52,9 @@ namespace DataStructures.Test
             node.Add(new AvlTreeNode<int>(2));
             node.Add(new AvlTreeNode<int>(3));
 
-            Assert.Equal(new AvlTreeNode<int>(2), node.GetRoot());
-            Assert.Equal(new AvlTreeNode<int>(1), node.GetRoot().LeftNode);
-            Assert.Equal(new AvlTreeNode<int>(3), node.GetRoot().RightNode);
+            Assert.Equal(2, node.GetRoot().Value);
+            Assert.Equal(1, node.GetRoot().LeftNode.Value);
+            Assert.Equal(3, node.GetRoot().RightNode.Value);
             Assert.Equal(1, node.GetRoot().Height);
         }
 
@@ -132,9 +81,9 @@ namespace DataStructures.Test
             node.Add(new AvlTreeNode<int>(1));
             node.Add(new AvlTreeNode<int>(2));
 
-            Assert.Equal(new AvlTreeNode<int>(2), node.GetRoot());
-            Assert.Equal(new AvlTreeNode<int>(1), node.GetRoot().LeftNode);
-            Assert.Equal(new AvlTreeNode<int>(3), node.GetRoot().RightNode);
+            Assert.Equal(2, node.GetRoot().Value);
+            Assert.Equal(1, node.GetRoot().LeftNode.Value);
+            Assert.Equal(3, node.GetRoot().RightNode.Value);
             Assert.Equal(1, node.GetRoot().Height);
         }
 

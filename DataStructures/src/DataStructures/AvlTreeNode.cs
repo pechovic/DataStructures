@@ -131,7 +131,7 @@ namespace DataStructures
 
         private void AddInternal(AvlTreeNode<T> node)
         {
-            if (this > node)
+            if (Value.CompareTo(node.Value) > 0)
             {
                 if (LeftNode is EmptyLeaf)
                 {
@@ -162,7 +162,7 @@ namespace DataStructures
 
         private void RemoveInternal(AvlTreeNode<T> node)
         {
-
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -316,92 +316,7 @@ namespace DataStructures
         }
 
         #endregion
-
-        #region Equality
-
-        public static bool operator <(AvlTreeNode<T> a, AvlTreeNode<T> b)
-        {
-            return a.Value.CompareTo(b.Value) < 0;
-        }
-
-        public static bool operator >(AvlTreeNode<T> a, AvlTreeNode<T> b)
-        {
-            return a.Value.CompareTo(b.Value) > 0;
-        }
-
-        public static bool operator ==(AvlTreeNode<T> a, AvlTreeNode<T> b)
-        {
-            if (ReferenceEquals(a, b))
-            {
-                return true;
-            }
-
-            if (((object)a == null) || ((object)b == null))
-            {
-                return false;
-            }
-
-            return a.Value.CompareTo(b.Value) == 0;
-        }
-
-        public static bool operator !=(AvlTreeNode<T> a, AvlTreeNode<T> b)
-        {
-            return !(a == b);
-        }
-
-
-        /// <summary>
-        /// Defining value identity.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            AvlTreeNode<T> node = obj as AvlTreeNode<T>;
-            if (node == null)
-            {
-                return false;
-            }
-
-            return Equals(node);
-        }
-
-        /// <summary>
-        /// Defininig value identity
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public bool Equals(AvlTreeNode<T> node)
-        {
-            if (node == null)
-            {
-                return false;
-            }
-
-            return Value.CompareTo(node.Value) == 0;
-        }
-
-        /// <summary>
-        /// Identity drived by value. 
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
-        #endregion
-
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
-
+        
         #region EmptyLeaf
 
         /// <summary>
