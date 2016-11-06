@@ -6,11 +6,12 @@
     "isShellCommand": true,
     "args": [],
     "tasks": [
+        // build all including tests
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}/DataStructures/src/DataStructures/project.json",
-                "${workspaceRoot}/DataStructures/src/DataStructures.Test/project.json"
+                "${workspaceRoot}/DataStructures/project.json",
+                "${workspaceRoot}/DataStructures.Test/project.json"
             ],
             "isBuildCommand": true,
             "showOutput": "silent",

@@ -2,11 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (Test DLL)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/DataStructures/src/DataStructures.Test/bin/Debug/netcoreapp1.0/DataStructures.Test.dll",
+            "program": "${workspaceRoot}/DataStructures.Test/bin/Debug/netcoreapp1.0/DataStructures.Test.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": false,
+            "externalConsole": false
+        },
+        {
+            "name": ".NET Core Launch (DLL)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/DataStructures/bin/Debug/netcoreapp1.0/DataStructures.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
