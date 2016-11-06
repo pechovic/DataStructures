@@ -1,3 +1,3 @@
 # DataStructures
 
-Quick help how to run xUnit tests: https://xunit.github.io/docs/getting-started-desktop.html
+A testing project to mainly try out Visual Studio Code, .NET Core, xUnit...
