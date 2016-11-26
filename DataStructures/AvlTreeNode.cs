@@ -18,6 +18,18 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// This one is never empty.
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsEmpty
+        {
+            get 
+            {
+                return false;
+            }
+        }
+
         public virtual AvlTreeNode<T> Parent { get; internal set; }
 
         public virtual TreeState State
@@ -89,7 +101,7 @@ namespace DataStructures
         }
 
         /// <summary>
-        /// Classic hight of the node.
+        /// Classic height of the node.
         /// </summary>
         public virtual int Height
         {
@@ -121,7 +133,7 @@ namespace DataStructures
             return Parent.GetRoot();
         }
        
-        #region Add/Remove/Find
+    #region Add/Remove/Find
 
         public void Add(AvlTreeNode<T> node)
         {
@@ -157,7 +169,62 @@ namespace DataStructures
 
         public void Remove(AvlTreeNode<T> node)
         {
-            GetRoot().RemoveInternal(node);
+            // is node a leaf?
+            if (node.RightNode.IsEmpty && node.LeftNode.IsEmpty)
+            {
+                // just remove from parent and that's it
+                RemoveFromParent(node);
+                return;
+            }
+
+            if (node.RightNode.IsEmpty || node.LeftNode.IsEmpty)
+            {
+                var parent = node.Parent;
+                var childlocation = RemoveFromParent(node);
+                var nodeToAssign = node.RightNode.IsEmpty ? node.LeftNode : node.RightNode;
+
+                if (childlocation == ChildLocation.Left)
+                {
+                    parent.LeftNode = nodeToAssign;
+                }
+                else if (childlocation == ChildLocation.Right) 
+                {
+                    parent.RightNode = nodeToAssign;
+                }
+
+                return;
+            }
+
+            // now it means that both child nodes have values
+            var newSubRoot = node.RightNode.Min();
+            node.Value = newSubRoot.Value;
+            RemoveFromParent(newSubRoot);
+        }
+
+        /// <summary>
+        /// remove it from its root and return information where it was
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private static ChildLocation RemoveFromParent(AvlTreeNode<T> node) 
+        {
+            // is this a left child or right child
+            if (node.Parent.LeftNode == node)
+            {
+                node.Parent.LeftNode = EmptyLeaf.Instance;
+                node.Parent = null;
+                return ChildLocation.Left;
+            } 
+            else if (node.Parent.RightNode == node)
+            {
+                node.Parent.RightNode = EmptyLeaf.Instance;
+                node.Parent = null;
+                return ChildLocation.Right;
+            }
+            else
+            {
+                throw new Exception("Something went wrong in your algorithm. The tree is corrupted.");
+            }
         }
 
         private void RemoveInternal(AvlTreeNode<T> node)
@@ -190,9 +257,39 @@ namespace DataStructures
             return RightNode.Find(value);
         }
 
-        #endregion
+    #endregion
 
-        #region Balancing
+    #region Min/Max
+
+        public AvlTreeNode<T> Min() 
+        {
+            var previous = this;
+            var current = this;
+            while (!current.IsEmpty)
+            {
+                previous = current;
+                current = current.LeftNode;
+            }
+
+            return previous;
+        }
+
+        public AvlTreeNode<T> Max() 
+        {
+            var previous = this;
+            var current = this;
+            while (!current.IsEmpty)
+            {
+                previous = current;
+                current = current.RightNode;
+            }
+
+            return previous;
+        }
+
+    #endregion
+
+    #region Balancing
 
         /// <summary>
         /// Decide what rotation to take on this tree and perform.
@@ -286,9 +383,9 @@ namespace DataStructures
             RightRotation();
         }
 
-        #endregion
+    #endregion
 
-        #region Traversal
+    #region Traversal
 
         public virtual void InOrderTraversal(Action<AvlTreeNode<T>> actionOnNode)
         {
@@ -315,9 +412,9 @@ namespace DataStructures
             actionOnNode(this);
         }
 
-        #endregion
+    #endregion
         
-        #region EmptyLeaf
+    #region EmptyLeaf
 
         /// <summary>
         /// Null object pattern for simple writing.
@@ -337,6 +434,14 @@ namespace DataStructures
                 get
                 {
                     return -1;
+                }
+            }
+
+            public override bool IsEmpty
+            {
+                get
+                {
+                    return true;
                 }
             }
 
@@ -366,11 +471,21 @@ namespace DataStructures
             }
         }
 
-        #endregion
+    #endregion
 
     }
 
-    #region TreeState
+#region ChildLocation
+
+    public enum ChildLocation
+    {
+        Left,
+        Right
+    }
+
+#endregion
+
+#region TreeState
     public enum TreeState
     {
         Balanced,
@@ -378,5 +493,7 @@ namespace DataStructures
         RightHeavy
     }
 
-    #endregion
+#endregion
+
+
 }

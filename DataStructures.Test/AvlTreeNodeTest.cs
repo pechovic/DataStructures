@@ -93,17 +93,55 @@ namespace DataStructures.Test
             var rootNode = GetBigTree();
 
             Assert.Equal(9, rootNode.Height);
+            rootNode.Remove(rootNode.Find(9));
+            rootNode.Remove(rootNode.Find(128));
+            Assert.True(rootNode.Find(9).IsEmpty);
+            Assert.True(rootNode.Find(128).IsEmpty);
 
-            rootNode.Remove(new AvlTreeNode<int>(9));
-            rootNode.Remove(new AvlTreeNode<int>(345));
+            for (int i = 2; i < 1000; i++)
+            {
+                if (i != 9 && i != 128) 
+                {
+                    Assert.False(rootNode.Find(i).IsEmpty, "Failed to find node: " + i);
+                }
+            }
+        }
+
+        [Fact]
+        public void FindTest()
+        {
+            var rootNode = GetBigTree();
 
             Type empty = typeof(AvlTreeNode<int>.EmptyLeaf);
-            Assert.IsType(empty, rootNode.Find(9));
-            Assert.IsNotType(empty, rootNode.Find(998));
-            Assert.IsType(empty, rootNode.Find(345));
-            Assert.IsNotType(empty, rootNode.Find(789));
+            Assert.False(rootNode.Find(32).IsEmpty);
+        }
 
-            Assert.IsType(empty, rootNode.Find(10900998));
+        [Fact]
+        public void MinTest()
+        {
+            var node = Get12345Tree();
+            Assert.Equal(1, node.Min().Value);
+        }
+
+        [Fact]
+        public void MinTest_Big()
+        {
+            var node = GetBigTree();
+            Assert.Equal(1, node.Min().Value);
+        }
+
+        [Fact]
+        public void MaxTest()
+        {
+            var node = Get12345Tree();
+            Assert.Equal(5, node.Max().Value);
+        }
+
+        [Fact]
+        public void MaxTest_Big()
+        {
+            var node = GetBigTree();
+            Assert.Equal(999, node.Max().Value);
         }
 
         private AvlTreeNode<int> Get12345Tree()
